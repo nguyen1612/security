@@ -16,7 +16,7 @@ export class JwtController {
         return this.jwt.signup(body);
     }
 
-    @Get('user/:id')
+    @Get('auth/user/:id')
     async getData(@Headers() header, @Query() query, @Param() param) {
         return this.jwt.getData(query, param, header);
     }
