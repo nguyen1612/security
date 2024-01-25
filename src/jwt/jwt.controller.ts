@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Headers, Param, Post, Query } from "@nestjs/common";
 import { JwtService } from "./jwt.service";
+import { LoginDTO, SignUpDTO } from "src/dto";
 
 @Controller('v1')
 export class JwtController {
@@ -11,7 +12,7 @@ export class JwtController {
     }
 
     @Post('signup')
-    async signup(@Body() body: SignupDTO) {
+    async signup(@Body() body: SignUpDTO) {
         return this.jwt.signup(body);
     }
 

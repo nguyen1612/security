@@ -1,11 +1,14 @@
 import { Injectable } from "@nestjs/common";
 import { Password } from "src/utils";
 import * as jwt from "jsonwebtoken";
+import { NotFoundError } from "src/error";
+import { InvalidError } from "src/error/Invalid";
+import { LoginDTO, SignUpDTO } from "src/dto";
 
 /*
 TODO: Implement database. However, for current demo, use array instead
 */
-interface UserModel extends SignupDTO{}
+interface UserModel extends SignUpDTO {}
 const User = () => {
     const data: UserModel[] = [];
     return {
@@ -40,13 +43,13 @@ export class JwtService {
         // Check whether user is existed;
         const user = this.User.findUserByUsername(username);
         if (!user) {
-            throw Error();
+            throw new NotFoundError("Invalid username/password");
         }
 
         // Compare password
         const hashedPassword = await Password.hash(password);
         if (hashedPassword !== user.password) {
-            throw Error();
+            throw new InvalidError("Invalid username/password");
         }
 
         // Generate JWT token
@@ -56,24 +59,29 @@ export class JwtService {
         return { accessToken, refreshToken };
     }
 
-    async signup(body: SignupDTO) {
+    async signup(body: SignUpDTO) {
         this.User.insert(body);
         return { message: "Success" };
     }
 
     async getData(query, param, header) {
+        console.log('REACH');
         const { id } = param;
         const { dob } = query;
 
+        // Get access token from the header
         const accessToken = header['authorization'].split(' ')[1];
+
+        // Verify access token
         const payload = <any> jwt.verify(accessToken, secretKey);
         if (!payload) {
-            throw Error();
+            throw new NotFoundError("Unauthorized");
         }
 
+        // Start query data from database
         const user = this.User.findUserByUsername(payload.username);
         if (!user) {
-            throw Error();
+            throw new NotFoundError("Unauthorized");
         }
 
         return user.dob;
