@@ -16,5 +16,5 @@ export class SignUpDTO {
     password: string;
 
     @IsString()
-    dob: string;
+    address: string;
 }

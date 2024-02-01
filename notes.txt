@@ -1,0 +1,8 @@
+JWT drawbacks
+- Revokation
+
+JWT has 3 parts:
+    - Header (encode)
+    - Payload (encode)
+    - Signature
+    *Note: Header and Payload is not encrypted, which means anynone see this JWT token can decode it

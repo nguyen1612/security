@@ -11,6 +11,7 @@ export class AllErrors extends BaseExceptionFilter {
         const body = exception instanceof BaseError
                         ? exception.getResponse()
                         : { statusCode: 500, message: 'Internal Server Error' };
+        console.log(exception?.message);
         response.status(200).json(body);
     }
 }
