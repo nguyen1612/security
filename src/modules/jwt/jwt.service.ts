@@ -10,7 +10,7 @@ import { InjectModel } from "@nestjs/mongoose";
 
 
 /*
-TODO: Implement allowList for access tokens & refresh tokens with Redis
+TODO: Implement allowList for access tokens & refresh tokens with Redis ?
 */
 /*
 TODO: Secure the secret key

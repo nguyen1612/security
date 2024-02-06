@@ -29,6 +29,7 @@
     "cookie-parser": "^1.4.6",
     "jsonwebtoken": "^9.0.2",
     "jws": "^4.0.0",
+    "md5": "^2.3.0",
     "mongoose": "^8.1.1",
     "redis": "^4.6.12",
     "reflect-metadata": "^0.1.13",

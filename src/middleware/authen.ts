@@ -15,11 +15,6 @@ declare global {
 export class AuthMiddleware implements NestMiddleware {
     use(req: Request, response: Response, next: NextFunction) {
         try {
-            console.log('HELLO')
-            // Prevent replay attacks
-            const { stime, sign, cnonce, snonce } = req.query;
-            console.log(req.query);
-
             let accessToken = req.get('authorization').split(' ')[1]
             const payload = jwt.verify(accessToken, "abc");
             req.user = payload;
